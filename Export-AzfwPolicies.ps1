@@ -4,7 +4,7 @@
 
   .DESCRIPTION
   This script can be used to export Azure Firewall Policy Collections.  The exported CSV can be used by Import-AzfwPolicies.ps1 to add new Rules
-  to an existing collection or create a new collection
+  to an existing collection or create a new collection. Please ensure your shell is already authenticated and the target subscription has been selected.
 
   .PARAMETER AzureFirewallPolicyName
   The target Azure firewall policy name
