@@ -16,6 +16,7 @@ Param (
   [string]$AzureFirewallPolicyName,
   [string]$AzureFirewallPolicyResourceGroupName, 
   [string]$PolicyCollectionGroupName,
+  [int]$PolicyPriority,
   [string]$CSVPath
 )
 
@@ -53,27 +54,32 @@ Function Get-CSVRules ($CSVPath) {
 }
 
 Function Import-FirewallRules ($RulesfromCSV) {
+    $ruleCollection = @()
+    $WarningPreference = 'SilentlyContinue'
 
-    foreach ($entry in $RulesfromCSV)
+    foreach ($rule in $RulesfromCSV)
     {
         $RuleParameter = @{
-            Name = $entry.Name;
-            Protocol = $entry.protocols
-            sourceAddress = $entry.SourceAddresses
-            DestinationAddress = $entry.DestinationAddresses
-            DestinationPort = $entry.DestinationPorts
+            Name                    = $rule.Name;
+            Protocol                = $rule.protocols
+            sourceAddress           = $rule.SourceAddresses
+            DestinationAddress      = $rule.DestinationAddresses
+            DestinationPort         = $rule.DestinationPorts
+            DestinationIPGroup      = $null
         }
+        if($rule.SourceIPGroups){$RuleParameter.Add("SourceIPGroup",$rule.SourceIPGroups)}
+        if($rule.DestinationFQDNs){$RuleParameter.Add("DestinationFQDN",$rule.DestinationFQDNs)}
+        if($rule.DestinationIPGroups){$RuleParameter.Add("DestinationIPGroup",$rule.DestinationIPGroups)}
 
-        $rule = New-AzFirewallPolicyNetworkRule @RuleParameter
+        $ruleObject = New-AzFirewallPolicyNetworkRule @RuleParameter -
 
         $NetworkRuleCollection = @{
-            Name = $entry.RuleCollectionName
-            Priority = $entry.RulePriority
-            ActionType = $entry.ActionType
-            Rule       = $rules += $rule
+            Name        = $rule.RuleCollectionName
+            Priority    = $rule.RulePriority
+            ActionType  = $rule.ActionType
+            Rule        = $ruleCollection+= $ruleObject
         }
     }
-
     return $NetworkRuleCollection
 }
 
@@ -84,7 +90,7 @@ $AzureFirewallPolicyObject = Get-AzFirewallPolicy -Name $AzureFirewallPolicyName
                                                   -ResourceGroupName $AzureFirewallPolicyResourceGroupName
 
 $AzureFirewallPolicyCollectionGroupObject = New-AzFirewallPolicyRuleCollectionGroup -Name $PolicyCollectionGroupName `
-                                                                                    -Priority 200 `
+                                                                                    -Priority $PolicyPriority `
                                                                                     -FirewallPolicyObject $AzureFirewallPolicyObject
 
 
@@ -92,9 +98,9 @@ $RulesfromCSV = Get-CSVRules -CSVPath $CSVPath
 $networkRuleCollection = Import-FirewallRules -RulesfromCSV $RulesfromCSV
 
 
-$NetworkRuleCollectionObject = New-AzFirewallPolicyFilterRuleCollection $networkRuleCollection
+$NetworkRuleCollectionObject = New-AzFirewallPolicyFilterRuleCollection @networkRuleCollection
 
 Set-AzFirewallPolicyRuleCollectionGroup -Name $AzureFirewallPolicyCollectionGroupObject.Name `
-                                        -Priority 200 `
+                                        -Priority $PolicyPriority `
                                         -RuleCollection $NetworkRuleCollectionObject `
-                                        -FirewallPolicyObject $AzureFirewallPolicyCollectionGroupObject
+                                        -FirewallPolicyObject $AzureFirewallPolicyObject
