@@ -1,10 +1,23 @@
 <#
   .SYNOPSIS
   Import script used in conjunction with the associated export script for Azure firewall rules
+
+
   .DESCRIPTION
-  
+  This script can be used to import Azure Firewall Policy Collections. This script can be used to add new Rules
+  to  a new collection. Please ensure your shell is already authenticated and the target subscription has been selected prior to running.
+
   .PARAMETER AzureFirewallPolicyName
-  The target Azure firewall policy name
+  The target Azure firewall policy name where the new collection will exist
+
+  .PARAMETER AzureFirewallPolicyResourceGroupName
+  The resource group in which the policy should be created in
+
+  .PARAMETER PolicyCollectionGroupName
+  The Policy collection name to be used for the new collection
+
+  .PARAMETER CSVPath
+  The target folder for azfwPolicy.csv to be imported from
 
 #>
 ## ----------------------------------------------------------------------------------
