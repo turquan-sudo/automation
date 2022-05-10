@@ -11,7 +11,7 @@
   private2.contoso.com-microsoftvs-p-uw1
 
   This script also assumes that the account authenticate does have access to all subscriptionId's detailed in the networking
-  objects
+  objects. Please ensure the shell context is set to the subscription where the private DNS Zone resource group exists before running.
 
   .PARAMETER privateZoneResourceGroup
   The resource group where the private zones exist
@@ -109,11 +109,11 @@ Write-Output ($privateZones | Select-Object name)
 foreach ($network in $networkArr) {
     foreach ($zone in $privateZones){
         $links += ((New-NetworkLink -networkObj $network.getNetworkObject() `
-                                 -subscriptionName $network.getSubscriptionName() `
-                                 -regionAbbreviation $network.regionAbbreviation `
-                                 -environmentCode $network.environmentCode `
-                                 -zoneName $zone.name `
-                                 -zoneRG $zone.resourceGroupName).name)+"`n"
+                                    -subscriptionName $network.getSubscriptionName() `
+                                    -regionAbbreviation $network.regionAbbreviation `
+                                    -environmentCode $network.environmentCode `
+                                    -zoneName $zone.name `
+                                    -zoneRG $zone.resourceGroupName).name)+"`n"
     }
 }
 

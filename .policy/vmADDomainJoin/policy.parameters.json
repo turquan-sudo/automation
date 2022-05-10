@@ -1,0 +1,44 @@
+{
+    "domainUsername": {
+        "type": "String",
+        "metadata": {
+            "displayName": "domainUsername"
+        }
+    },
+    "domainPassword": {
+        "type": "String",
+        "metadata": {
+            "displayName": "domainPassword"
+        }
+    },
+    "domainFQDN": {
+        "type": "String",
+        "metadata": {
+            "displayName": "domainFQDN"
+        }
+    },
+    "domainOUPath": {
+        "type": "String",
+        "metadata": {
+            "displayName": "domainOUPath"
+        }
+    },
+    "keyVaultResourceId": {
+        "type": "String",
+        "metadata": {
+            "displayName": "keyVaultResourceId"
+        }
+    },
+    "effect": {
+        "type": "String",
+        "defaultValue": "DeployIfNotExists",
+        "allowedValues": [
+            "DeployIfNotExists",
+            "Disabled"
+        ],
+        "metadata": {
+            "displayName": "Effect",
+            "description": "Enable or disable the execution of the policy"
+        }
+    }
+}
