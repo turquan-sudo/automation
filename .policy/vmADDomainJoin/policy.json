@@ -14,6 +14,10 @@
             "equals": "WindowsServer"
         },
         {
+            "field": "[concat('tags[', parameters('tagFilter'), ']')]",
+            "exists": true
+        },
+        {
             "field": "Microsoft.Compute/imageSKU",
             "in": [
                 "2008-R2-SP1",

@@ -29,6 +29,12 @@
             "displayName": "keyVaultResourceId"
         }
     },
+    "tagFilter": {
+        "type": "String",
+        "metadata": {
+            "displayName": "tagFilter"
+        }
+    },
     "effect": {
         "type": "String",
         "defaultValue": "DeployIfNotExists",
