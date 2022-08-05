@@ -9,4 +9,4 @@
 
 
 ## Troubleshooting
-If the extension installation fails please review the resource deployment log, for more detailed information please review the target machines event log
+If the extension installation fails please review the resource deployment log, for more detailed information please review the target machines event log. Also check c:\Windows\Debug for verbose join information
