@@ -7,7 +7,7 @@ YOU ARE FREE TO REUSE AND/OR MODIFY THE CODE TO FIT YOUR NEEDS
 //-----------------------------------------------------------------------
 
 .SYNOPSIS
-Assigns an ESU license to an ARC server object.
+Assigns an ESU license to an ARC server object.s
 
 .DESCRIPTION
 This script will assign an ARC based ESU license to an ARC server requiring ESU acvitation.
