@@ -1,4 +1,4 @@
-#Requires -Modules az
+#Requires -Modules az.accounts
 <# 
 //-----------------------------------------------------------------------
 
@@ -88,7 +88,7 @@ $global:creator = $MyInvocation.MyCommand.Name
 # AZ Login definition block #
 ################################
 
-Connect-AzAccount 
+Connect-AzAccount
 $userToken = Get-AzAccessToken
 
 ################################
@@ -98,7 +98,7 @@ $userToken = Get-AzAccessToken
 function AssignESULicense {
 
     param (
-        [string]$bearerToken
+        [string]$bearerToken,
         [string]$licenseResourceGroupName,
         [string]$licenseName,
         [string]$ARCServerName,
