@@ -89,7 +89,7 @@ param(
 # AZ Login definition block #
 ################################
 
-#Connect-AzAccount
+Connect-AzAccount
 $userToken = Get-AzAccessToken
 
 
