@@ -1,0 +1,4 @@
+LicenseName,ResourceGroup,SubscriptionId,CoreCount,CoreType,OS,LicenseEdition
+License1,rg-arcesu,4161c7b8-6905-41e2-b7e2-6961a29db3c4,8,vCore,Windows Server 2012,Standard
+License2,rg-arcesu,4161c7b8-6905-41e2-b7e2-6961a29db3c4,8,vCore,Windows Server 2012 R2,Standard
+License3,rg-arcesu,4161c7b8-6905-41e2-b7e2-6961a29db3c4,16,pCore,Windows Server 2012 R2,Datacenter
